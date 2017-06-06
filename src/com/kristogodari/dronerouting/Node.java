@@ -9,19 +9,13 @@ public class Node implements Comparable<Node> {
     public static final String TYPE_CLIENT = "CLIENT";
     public static final String TYPE_DRONE = "DRONE";
 
-
-    private Node parent;
-
     private String type;
 
-    private double distance; //= Double.MAX_VALUE;
+    private double distance;
 
     private String data;
 
     private List<Edge> neighbors;
-
-    private boolean visited;
-
 
     public Node(String data, String type) {
         this.type = type;
@@ -29,25 +23,8 @@ public class Node implements Comparable<Node> {
         this.neighbors = new ArrayList<>();
     }
 
-
     public void addNeighbor(Edge neighbor) {
         this.neighbors.add(neighbor);
-    }
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
-
-    public Node getParent() {
-        return parent;
-    }
-
-    public void setParent(Node parent) {
-        this.parent = parent;
     }
 
     public double getDistance() {
@@ -90,5 +67,10 @@ public class Node implements Comparable<Node> {
     @Override
     public int compareTo(Node otherNode) {
         return Double.compare(this.distance, otherNode.getDistance());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.data == ((Node) obj).data;
     }
 }

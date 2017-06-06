@@ -1,18 +1,21 @@
 package com.kristogodari.dronerouting;
 
-import java.awt.*;
 import java.util.*;
 
 public class DroneRoutingAlgorithm {
 
+    private Stack<Node> bestRoute;
 
-    public void route(Node startingNode) {
+    public DroneRoutingAlgorithm() {
+        bestRoute = new Stack<>();
+    }
+
+    public Stack<Node> getBestRoute(Node startingNode) {
 
         PriorityQueue<Node> nodesToVisit = new PriorityQueue<>();
         Stack<Node> nodesVisited = new Stack<>();
 
         startingNode.setDistance(0);
-        startingNode.setVisited(true);
         nodesVisited.push(startingNode);
 
         for (Edge edge : startingNode.getNeighbors()) {
@@ -20,59 +23,64 @@ public class DroneRoutingAlgorithm {
 
                 Node wareHouseNode = edge.getDestinationNode();
                 wareHouseNode.setDistance(edge.getSourceNode().getDistance() + edge.getWeight());
-                wareHouseNode.setParent(startingNode);
 
                 nodesToVisit.add(wareHouseNode);
             }
         }
 
-        visitRecursiveAllWarehouseNodes(nodesToVisit, nodesVisited);
+        visitRecursivelyAllNodes(nodesToVisit, nodesVisited);
+
+        return this.bestRoute;
 
     }
 
-    private void visitRecursiveAllWarehouseNodes(PriorityQueue<Node> nodesToVisit, Stack<Node> nodesVisited) {
+    private void visitRecursivelyAllNodes(PriorityQueue<Node> nodesToVisit, Stack<Node> nodesVisited) {
 
         while (!nodesToVisit.isEmpty()) {
 
-            Node wareHouseNode = nodesToVisit.poll();
-
-            wareHouseNode.setVisited(true);
-
-            nodesVisited.push(wareHouseNode);
-
             PriorityQueue<Node> nodesToVisitRecursively = new PriorityQueue<>();
+
+            Node wareHouseNode = nodesToVisit.poll();
 
             for (Edge edge : wareHouseNode.getNeighbors()) {
                 if (edge.getDestinationNode().getType() == Node.TYPE_WAREHOUSE && !nodesVisited.contains(edge.getDestinationNode())) {
 
                     Node neighborNode = new Node(edge.getDestinationNode().getData(), edge.getDestinationNode().getType());
-                    neighborNode.setDistance(edge.getSourceNode().getDistance() + edge.getWeight());
-                    neighborNode.setParent(wareHouseNode);
+                    neighborNode.setDistance(wareHouseNode.getDistance() + edge.getWeight());
                     neighborNode.setNeighbors(edge.getDestinationNode().getNeighbors());
-                    neighborNode.setVisited(false);
 
                     nodesToVisitRecursively.add(neighborNode);
                 }
             }
 
-            if(nodesToVisitRecursively.isEmpty()){
+            nodesVisited.push(wareHouseNode);
 
-                Node lastWareHouse = nodesVisited.peek();
-                if(lastWareHouse.getNeighbors().size() == 0){
-                    for(Node node: nodesVisited){
-                        System.out.print(node + "->");
+            if (nodesToVisitRecursively.isEmpty()) {
+
+                Node lastWareHouseVisited = nodesVisited.peek();
+
+                if (lastWareHouseVisited.getNeighbors().size() == 0) {
+
+                    if(this.bestRoute.empty()){
+                        for (Node node : nodesVisited) {
+                           this.bestRoute.push(node);
+                        }
+                    }else{
+                        if(nodesVisited.peek().getDistance() < this.bestRoute.peek().getDistance()){
+                            this.bestRoute.clear();
+                            for (Node node : nodesVisited) {
+                                this.bestRoute.push(node);
+                            }
+                        }
                     }
-                    System.out.println(nodesVisited.peek().getDistance());
                 }
 
-                for (Edge edge : lastWareHouse.getNeighbors()) {
+                for (Edge edge : lastWareHouseVisited.getNeighbors()) {
                     if (edge.getDestinationNode().getType() != Node.TYPE_WAREHOUSE && !nodesVisited.contains(edge.getDestinationNode())) {
 
                         Node neighborNode = new Node(edge.getDestinationNode().getData(), edge.getDestinationNode().getType());
-                        neighborNode.setDistance(edge.getSourceNode().getDistance() + edge.getWeight());
-                        neighborNode.setParent(lastWareHouse);
+                        neighborNode.setDistance(lastWareHouseVisited.getDistance() + edge.getWeight());
                         neighborNode.setNeighbors(edge.getDestinationNode().getNeighbors());
-                        neighborNode.setVisited(edge.getDestinationNode().isVisited());
 
                         nodesToVisitRecursively.add(neighborNode);
                     }
@@ -80,10 +88,9 @@ public class DroneRoutingAlgorithm {
 
             }
 
-            visitRecursiveAllWarehouseNodes(nodesToVisitRecursively, nodesVisited);
+            visitRecursivelyAllNodes(nodesToVisitRecursively, nodesVisited);
         }
 
         nodesVisited.pop();
     }
-
 }

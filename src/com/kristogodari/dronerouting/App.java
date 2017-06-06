@@ -1,52 +1,98 @@
 package com.kristogodari.dronerouting;
 
+import org.apache.commons.lang.time.StopWatch;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 public class App {
 
     public static void main(String[] args) {
 
-        Node c1 = new Node("C1", Node.TYPE_CLIENT);
-        Node c2 = new Node("C2", Node.TYPE_CLIENT);
-        Node c3 = new Node("C3", Node.TYPE_CLIENT);
-        Node c4 = new Node("C4", Node.TYPE_CLIENT);
+        int clientNo = 100;
+        int wareHouseNo = 9;
+        int dronesNo = 100;
 
-        Node w1 = new Node("W1", Node.TYPE_WAREHOUSE);
-        Node w2 = new Node("W2", Node.TYPE_WAREHOUSE);
-        Node w3 = new Node("W3", Node.TYPE_WAREHOUSE);
+        // create clients objects
+        ArrayList<Node> clients = new ArrayList<>();
+        for (int i = 0; i < clientNo; i++) {
+            clients.add(new Node("C" + (i + 1), Node.TYPE_CLIENT));
+        }
 
-        Node d1 = new Node("D1", Node.TYPE_DRONE);
-        Node d2 = new Node("D2", Node.TYPE_DRONE);
-        Node d3 = new Node("D3", Node.TYPE_DRONE);
+        // create warehouses objects
+        ArrayList<Node> warehouses = new ArrayList<>();
+        for (int i = 0; i < wareHouseNo; i++) {
+            warehouses.add(new Node("W" + (i + 1), Node.TYPE_WAREHOUSE));
+        }
 
-        c4.addNeighbor(new Edge(1, c4, w1));
-        c4.addNeighbor(new Edge(2, c4, w2));
-        c4.addNeighbor(new Edge(4, c4, w3));
+        // create drones objects
+        ArrayList<Node> drones = new ArrayList<>();
+        for (int i = 0; i < dronesNo; i++) {
+            drones.add(new Node("D" + (i + 1), Node.TYPE_DRONE));
+        }
 
-        w1.addNeighbor(new Edge(4, w1, w2));
-        w1.addNeighbor(new Edge(6, w1, w3));
 
-        w2.addNeighbor(new Edge(4, w2, w1));
-        w2.addNeighbor(new Edge(5, w2, w3));
 
-        w3.addNeighbor(new Edge(3, w3, w1));
-        w3.addNeighbor(new Edge(5, w3, w2));
+        // connect clients to drones
+        for (int i = 0; i < clients.size(); i++) {
+            int weight = (int) (Math.random() * 15 + 1);
+            clients.get(i).addNeighbor(new Edge(weight, clients.get(i), drones.get(i)));
+        }
 
-        w1.addNeighbor(new Edge(7, w1, c1));
-        w1.addNeighbor(new Edge(3, w1, c2));
-        w1.addNeighbor(new Edge(4, w1, c3));
+        // connect warehouses to clients
+        for (int i = 0; i < warehouses.size(); i++) {
+            for (int j = 0; j < clients.size(); j++) {
+                int weight = (int) (Math.random() * 15 + 1);
+                warehouses.get(i).addNeighbor(new Edge(weight, warehouses.get(i), clients.get(j)));
+            }
+        }
 
-        w2.addNeighbor(new Edge(5, w2, c1));
-        w2.addNeighbor(new Edge(2, w2, c2));
-        w2.addNeighbor(new Edge(6, w2, c3));
+        // connect warehouses with each other
+        Queue<NodePair> pairQueue = new LinkedList<>();
 
-        w3.addNeighbor(new Edge(7, w3, c1));
-        w3.addNeighbor(new Edge(4, w3, c2));
-        w3.addNeighbor(new Edge(3, w3, c3));
+        for (int i = 0; i < warehouses.size(); i++) {
+            for (int j = 0; j < warehouses.size(); j++) {
+                if(i != j && !pairQueue.contains(new NodePair(i,j))){
 
-        c1.addNeighbor(new Edge(2, c1,d1));
-        c2.addNeighbor(new Edge(1, c2,d2));
-        c3.addNeighbor(new Edge(3, c3,d3));
+                    int weight = (int) (Math.random() * 15 + 1);
+                    warehouses.get(i).addNeighbor(new Edge(weight, warehouses.get(i), warehouses.get(j)));
+                    warehouses.get(j).addNeighbor(new Edge(weight, warehouses.get(j), warehouses.get(i)));
+                    pairQueue.add(new NodePair(i,j));
+                }
+            }
+        }
 
+        // connect the new client to warehouses.
+        Node newClient = new Node("C0", Node.TYPE_CLIENT);
+
+        for (Node warehouse : warehouses) {
+            int weight = (int) (Math.random() * 15 + 1);
+            newClient.addNeighbor(new Edge(weight, newClient, warehouse));
+        }
+
+
+
+        // start profiling
+        StopWatch stopwatch = new StopWatch();
+        stopwatch.start();
+
+        // run algorithm and find best route
         DroneRoutingAlgorithm droneRoutingAlgorithm = new DroneRoutingAlgorithm();
-        droneRoutingAlgorithm.route(c4);
+        Stack<Node> bestRoute = droneRoutingAlgorithm.getBestRoute(newClient);
+
+        // strop profiling
+        stopwatch.stop();
+        long timeTaken = stopwatch.getTime();
+
+
+        // print best route and running time
+        for (Node node : bestRoute) {
+            System.out.print(node + "->");
+        }
+
+        System.out.println(bestRoute.peek().getDistance());
+        System.out.println((timeTaken / 1000) + "");
     }
 }
