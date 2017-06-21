@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args) {
 
         int clientNo = 100;
-        int wareHouseNo = 7;
+        int wareHouseNo = 5;
         int dronesNo = 100;
 
         // create clients objects
