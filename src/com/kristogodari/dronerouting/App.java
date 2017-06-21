@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args) {
 
         int clientNo = 100;
-        int wareHouseNo = 1;
+        int wareHouseNo = 7;
         int dronesNo = 100;
 
         // create clients objects
@@ -32,8 +32,6 @@ public class App {
         for (int i = 0; i < dronesNo; i++) {
             drones.add(new Node("D" + (i + 1), Node.TYPE_DRONE));
         }
-
-
 
         // connect clients to drones
         for (int i = 0; i < clients.size(); i++) {
