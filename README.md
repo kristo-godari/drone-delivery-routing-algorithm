@@ -15,7 +15,7 @@ Let's see an example: We have 3 drones(D1, D2, D3), 3 warehouses(W1, W2, W3) and
 Drone D1 is delivering to C1, D2 to C2 and D3 to C3. Now a new order shows for client 4 (C4), this order has tree products 
 and these products can be found: Product 1 in W1, Product 2 in W2 and Product 3 in W3. The drone that will deliver this order must pass throug all three warehouses.
 
-With this data we can build the graph represented below: 
+With this data we can build the graph represented below:
 
 ![Drone delivery graph](/docs/graph.png?raw=true "Drone delivery graph")
 
@@ -23,7 +23,7 @@ This is an directed graph with edge weights. Each edge between two nodes represe
 needs to fly form first node address(latitude, longitude) to second node address(latitude, longitude).
 
 The question is: Which drone D1, D2, D3 offers best time to C4? 
-My algorithm tries all combinations to find the best route. Example output: C0->W5->W1->W7->W3->W2->W4->W6->C23->D23->34.0 where the 34.0 is the distance of the best route.
+My algorithm tries all combinations to find the best route. Example output for a graph with 7 warehouses, 100 clients and 100 drones: C0->W5->W1->W7->W3->W2->W4->W6->C23->D23->34.0 where the 34.0 is the distance of the best route.
 
 **Performance**:
 The number of warehouses is very important because it grows the number of combinations. From my tests:
@@ -37,4 +37,6 @@ The number of warehouses is very important because it grows the number of combin
 
 If you have more than 10 warehouses (is mandatory to pass throw all 11,12,13 ... warehouses) this algorithm becames very slow and is not practical to use
 because the number of combinations to test is huge. 
-But in 95% of the cases  you will have >5 mandatory warehouses so this performs fine.
+But in 95% of the cases  you will have less then 5 mandatory warehouses so this performs fine.
+
+I did the tests using an:	Notebook / Laptop ASUS Gaming 17.3" ROG GL752VW, FHD, Intel® Core™ i7-6700HQ (6M Cache, up to 3.50 GHz), 16GB DDR4, 1TB 7200RPM + 128GB SSD, GeForce GTX 960M 4GB
