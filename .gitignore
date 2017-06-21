@@ -1,3 +1,2 @@
-.gitignore
-.idea/*
-out/*
+.idea/
+out/
