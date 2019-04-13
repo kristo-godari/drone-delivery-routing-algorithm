@@ -1,4 +1,4 @@
-# Drone delivery routing algorithm
+# Drone routing algorithm for package delivery
 ##### Problem statement: 
 Given a fleet of drones, a list of customer orders, and availability of the individual products in warehouses,
 schedule the drone operations so that the orders are completed as soon as possible.
