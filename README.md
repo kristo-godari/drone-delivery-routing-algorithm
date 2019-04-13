@@ -35,7 +35,7 @@ To calculate the number of combination that the algorithm tries we use the formu
 multiplied by the number of clients.
 
 For our example that's is: (3!*4) = 24 combinations.
-For and graph with 10 warehouses, 100 clients = (10!*100)= 362,880,000 combinations.
+For a graph with 10 warehouses, 100 clients = (10!*100)= 362,880,000 combinations.
 
 **Performance**:
 The number of warehouses is very important because it grows the number of combinations. From my tests:
