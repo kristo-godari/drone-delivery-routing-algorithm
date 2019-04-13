@@ -1,4 +1,4 @@
-package com.kristogodari.dronerouting;
+package com.kristogodari;
 
 class NodePair {
 

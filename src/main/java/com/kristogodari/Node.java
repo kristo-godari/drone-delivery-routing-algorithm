@@ -1,4 +1,4 @@
-package com.kristogodari.dronerouting;
+package com.kristogodari;
 
 import java.util.ArrayList;
 import java.util.List;
