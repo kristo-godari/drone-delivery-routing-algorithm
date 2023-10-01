@@ -1,40 +1,47 @@
+// Here a class named Edge is being defined in package 'com.kristogodari'
 package com.kristogodari;
 
 public class Edge {
 
-    private double weight;
+    private double weight;  // Weight of the edge
+    private Node sourceNode;  // Source node of the edge
+    private Node destinationNode;  // Destination node of the edge
 
-    private Node sourceNode;
-
-    private Node destinationNode;
-
+    // Constructor:
     public Edge(double weight, Node sourceNode, Node destinationNode) {
         this.weight = weight;
         this.sourceNode = sourceNode;
         this.destinationNode = destinationNode;
     }
 
+    // Get the weight of the edge
     public double getWeight() {
-        return weight;
+        return weight;  
     }
 
+    // Set the weight of the edge
     public void setWeight(double weight) {
-        this.weight = weight;
+        this.weight = weight;  
     }
 
+    // Get the source node of the edge
     public Node getSourceNode() {
-        return sourceNode;
+        return sourceNode;  
     }
 
+    // Set the source node of the edge
     public void setSourceNode(Node sourceNode) {
-        this.sourceNode = sourceNode;
+        this.sourceNode = sourceNode; 
     }
 
+    // Get the destination node of the edge
     public Node getDestinationNode() {
-        return destinationNode;
+        return destinationNode;  
     }
 
+
+    // Set the destination node of the edge
     public void setDestinationNode(Node destinationNode) {
-        this.destinationNode = destinationNode;
+        this.destinationNode = destinationNode;  
     }
 }
