@@ -49,7 +49,7 @@ For a graph with 10 warehouses, 100 clients = (10!*100)= 362,880,000 combination
 ## Performance
 The number of warehouses is very important because it grows the number of combinations exponentially. From my tests:
 
-**Testing results for device:** Notebook / Laptop ASUS Gaming 17.3" , Intel® Core™ i7-6700HQ (6M Cache, up to 3.50 GHz), 16GB DDR4 RAM.
+**Testing results for device:** Laptop ASUS Gaming 17.3" , Intel® Core™ i7-6700HQ (6M Cache, up to 3.50 GHz), 16GB DDR4 RAM.
 
 - 100 clients, 100 drones and 10 warehouses = 77 sec
 - 100 clients, 100 drones and 9 warehouses = 8 sec
@@ -60,7 +60,7 @@ The number of warehouses is very important because it grows the number of combin
 - ...
 - 100 clients, 100 drones and 1 warehouses = 1 ms
 
-**Testing results for device:** Notebook / Laptop MacBook Pro , Chip Apple M1 Rro, 16 GB RAM
+**Testing results for device:** Laptop MacBook Pro , Chip Apple M1 Pro, 16 GB RAM
 
 - 100 clients, 100 drones and 10 warehouses = 53 sec
 - 100 clients, 100 drones and 9 warehouses = 5 sec
