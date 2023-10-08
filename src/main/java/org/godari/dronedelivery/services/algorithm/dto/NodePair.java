@@ -1,11 +1,11 @@
-package com.kristogodari;
+package org.godari.dronedelivery.services.algorithm.dto;
 
-class NodePair {
+public class NodePair {
 
     private int startNode;
     private int endNode;
 
-    NodePair(int startNode, int endNode) {
+    public NodePair(int startNode, int endNode) {
         this.startNode = startNode;
         this.endNode = endNode;
     }
