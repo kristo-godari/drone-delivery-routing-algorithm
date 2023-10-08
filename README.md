@@ -3,7 +3,7 @@
 The Drone Delivery Routing Algorithm is a Java-based project designed to find the fastest drone for delivering orders 
 in a drone delivery system. It utilizes a weighted graph and a shortest path algorithm to determine the optimal drone for a given order.
 
-If you are interested only the algorithm you can find it [here](src/main/java/org/godari/dronedelivery/services/algorithm/ShortestPathAlgorithmService.java)
+If you are interested only in the algorithm you can find it [here](src/main/java/org/godari/dronedelivery/services/algorithm/ShortestPathAlgorithmService.java)
 
 ## Problem statement 
 Given a fleet of drones, a list of customer orders, and availability of the individual products in warehouses,
