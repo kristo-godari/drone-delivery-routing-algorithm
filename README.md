@@ -57,7 +57,7 @@ The number of warehouses is very important because it grows the number of combin
 - 100 clients, 100 drones and 7 warehouses = 265 ms
 - 100 clients, 100 drones and 6 warehouses = 68 ms
 - 100 clients, 100 drones and 5 warehouses = 29 ms
-...
+- ...
 - 100 clients, 100 drones and 1 warehouses = 1 ms
 
 **Testing results for device:** Notebook / Laptop MacBook Pro , Chip Apple M1 Rro, 16 GB RAM
@@ -68,7 +68,7 @@ The number of warehouses is very important because it grows the number of combin
 - 100 clients, 100 drones and 7 warehouses = 174 ms
 - 100 clients, 100 drones and 6 warehouses = 63 ms
 - 100 clients, 100 drones and 5 warehouses = 14 ms
-  ...
+- ...
 - 100 clients, 100 drones and 1 warehouses = 1 ms
 
 
