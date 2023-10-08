@@ -82,4 +82,4 @@ If you would like to contribute to this project, please follow the standard GitH
 I welcome any improvements, bug fixes, or additional features that enhance the algorithm's functionality.
 
 ## License
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENCE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
