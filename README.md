@@ -3,11 +3,12 @@
 The Drone Delivery Routing Algorithm is a Java-based project designed to find the fastest drone for delivering orders 
 in a drone delivery system. It utilizes a weighted graph and a shortest path algorithm to determine the optimal drone for a given order.
 
+If you are interested only the algorithm you can find it [here](src/main/java/org/godari/dronedelivery/services/algorithm/ShortestPathAlgorithmService.java)
 
 ## Problem statement 
-Given a fleet of droneNodes, a list of customer orders, and availability of the individual products in warehouseNodes,
+Given a fleet of drones, a list of customer orders, and availability of the individual products in warehouses,
 schedule the drone operations so that the orders are completed as soon as possible.
-Orders can have multiple products, and products can be found in one or more warehouseNodes.
+Orders can have multiple products, and products can be found in one or more warehouses.
 
 ## My Solution
 My approach for solving this problem is this:
@@ -39,45 +40,41 @@ needs to fly form first node that has an location(latitude, longitude) to second
 My algorithm tries all combinations to find the best route. 
 For the given example the Drone D2 is the winner with the route: D2->C2->W2->W3->W1->C4 with a distance of 14. 
 
-To calculate the number of combination that the algorithm tries we use the formula: **W! * C**, number of warehouseNodes factorial 
-multiplied by the number of clientNodes.
+To calculate the number of combination that the algorithm tries we use the formula: **W! * C**, number of warehouses factorial 
+multiplied by the number of clients.
 
 For our example that is: (3!*4) = 24 combinations.
-For a graph with 10 warehouseNodes, 100 clientNodes = (10!*100)= 362,880,000 combinations.
+For a graph with 10 warehouses, 100 clients = (10!*100)= 362,880,000 combinations.
 
 ## Performance
-The number of warehouseNodes is very important because it grows the number of combinations exponentially. From my tests:
+The number of warehouses is very important because it grows the number of combinations exponentially. From my tests:
 
-**Testing device:** Notebook / Laptop ASUS Gaming 17.3" , Intel® Core™ i7-6700HQ (6M Cache, up to 3.50 GHz), 16GB DDR4 RAM.
+**Testing results for device:** Notebook / Laptop ASUS Gaming 17.3" , Intel® Core™ i7-6700HQ (6M Cache, up to 3.50 GHz), 16GB DDR4 RAM.
 
-**Testing results:**
-
-- 100 clientNodes, 100 droneNodes and 10 warehouseNodes = 77 sec
-- 100 clientNodes, 100 droneNodes and 9 warehouseNodes = 8 sec
-- 100 clientNodes, 100 droneNodes and 8 warehouseNodes = 951 ms
-- 100 clientNodes, 100 droneNodes and 7 warehouseNodes = 265 ms
-- 100 clientNodes, 100 droneNodes and 6 warehouseNodes = 68 ms
-- 100 clientNodes, 100 droneNodes and 5 warehouseNodes = 29 ms
+- 100 clients, 100 drones and 10 warehouses = 77 sec
+- 100 clients, 100 drones and 9 warehouses = 8 sec
+- 100 clients, 100 drones and 8 warehouses = 951 ms
+- 100 clients, 100 drones and 7 warehouses = 265 ms
+- 100 clients, 100 drones and 6 warehouses = 68 ms
+- 100 clients, 100 drones and 5 warehouses = 29 ms
 ...
-- 100 clientNodes, 100 droneNodes and 1 warehouseNodes = 1 ms
+- 100 clients, 100 drones and 1 warehouses = 1 ms
 
-**Testing device:** Notebook / Laptop MacBook Pro , Chip Apple M1 Rro, 16 GB RAM
+**Testing results for device:** Notebook / Laptop MacBook Pro , Chip Apple M1 Rro, 16 GB RAM
 
-**Testing results:**
-
-- 100 clientNodes, 100 droneNodes and 10 warehouseNodes = 53 sec
-- 100 clientNodes, 100 droneNodes and 9 warehouseNodes = 5 sec
-- 100 clientNodes, 100 droneNodes and 8 warehouseNodes = 744 ms
-- 100 clientNodes, 100 droneNodes and 7 warehouseNodes = 174 ms
-- 100 clientNodes, 100 droneNodes and 6 warehouseNodes = 63 ms
-- 100 clientNodes, 100 droneNodes and 5 warehouseNodes = 14 ms
+- 100 clients, 100 drones and 10 warehouses = 53 sec
+- 100 clients, 100 drones and 9 warehouses = 5 sec
+- 100 clients, 100 drones and 8 warehouses = 744 ms
+- 100 clients, 100 drones and 7 warehouses = 174 ms
+- 100 clients, 100 drones and 6 warehouses = 63 ms
+- 100 clients, 100 drones and 5 warehouses = 14 ms
   ...
-- 100 clientNodes, 100 droneNodes and 1 warehouseNodes = 1 ms
+- 100 clients, 100 drones and 1 warehouses = 1 ms
 
 
-If you have more than 10 warehouseNodes (is mandatory to pass throw all 11,12,13 ... warehouseNodes) this algorithm becomes very slow and is not practical to use
-because the number of combinations to test is huge. Ex: for 11 warehouseNodes there are 3,991,680,000 combinations.
-But in 99% of the cases you will have less then 10 mandatory warehouseNodes so the algorithms performs fine.
+If you have more than 10 warehouses (is mandatory to pass throw all 11,12,13 ... warehouses) this algorithm becomes very slow and is not practical to use
+because the number of combinations to test is huge. Ex: for 11 warehouses there are 3,991,680,000 combinations.
+But in 99% of the cases you will have less then 10 mandatory warehouses so the algorithms performs fine.
 
 
 ## Contributing
